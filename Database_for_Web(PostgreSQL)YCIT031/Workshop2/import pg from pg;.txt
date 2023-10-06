@@ -1,0 +1,42 @@
+import pg from "pg";
+
+const { Pool, Query } = pg;
+
+const pool = new Pool({
+  host: "localhost",
+  port: 4000,
+  database: "medical_app",
+  user: "postgres",
+  password: "password",
+});
+
+await pool.connect().catch((err) => {
+  console.error("connection error", err.stack);
+  process.exit(1);
+});
+
+console.log("connected");
+
+pool
+  .query("INSERT INTO patients DEFAULT VALUES RETURNING *;")
+  .then((result) => {
+    console.log("result", result);
+    const id = result.rows[0].id;
+    return id;
+  })
+  .then((id) => {
+    const text = `
+INSERT INTO patient_registrations
+(patient_id, last_name, first_name, birth_date, gender)
+VALUES ($1, $2, $3, $4, $5);`;
+
+    const data = [id, "Baptiste", "Oliver", "2000-01-25", "male"];
+
+    return pool.query(text, data);
+  })
+  .then(() => {
+    console.log("operation completed");
+  })
+  .catch((err) => console.error("query error", err));
+
+console.log("Hello World");

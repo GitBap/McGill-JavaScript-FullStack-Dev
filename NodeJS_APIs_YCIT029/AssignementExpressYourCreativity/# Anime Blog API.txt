@@ -1,0 +1,60 @@
+# Anime Blog API
+
+This is a simple Express.js API for an Anime Blog. It provides basic functionality to publish, delete, and update blog posts.
+Getting Started
+
+# Install the dependencies by running the following command:
+
+npm i express
+npm i nodemon
+npm i multer
+
+# Start the server with the following command:
+
+npm start
+
+# API Routes
+
+1. Server operation
+   Endpoint: /
+   Method: GET
+   Description: Sends a welcome message indicating that the server is operational.
+
+2. Introduction to the blog
+   Endpoint: /
+   Method: GET
+   Description: Sends a welcome message introducing the Anime Blog.
+
+3. Publish a post
+   Endpoint: /posts/publish
+   Method: POST
+   Description: Creates and publishes a new blog post.
+   Request Body:
+   title (required): Title of the blog post.
+   content (required): Content of the blog post.
+   Response:
+   Status 201: Blog post published successfully.
+   Status 400: Error if the request body is missing title or content.
+
+4. Delete a specific blog post
+   Endpoint: /posts/:id
+   Method: DELETE
+   Description: Deletes a specific blog post by its ID.
+   Parameters: id (required): ID of the blog post to be deleted.
+   Response: JSON: Message indicating the successful deletion of the blog post.
+
+5. Update a specific blog post
+   Endpoint: /posts/:id
+   Method: PUT
+   Description: Updates or modifies a specific blog post by its ID.
+   Parameters:
+   id (required): ID of the blog post to be updated.
+   Request Body: Updated content of the blog post.
+   Response:
+   JSON: Message indicating the successful update/modification of the blog post.
+
+# Error Handling
+
+# License
+
+This homework is licensed by Olivier Baptiste - McGill

@@ -1,0 +1,34 @@
+import express from "express";
+
+const app = express();
+
+const SECRET_PASSWORD = "password1234";
+
+const passwordCheckerMiddleware = (req, res, next) => {
+  console.log("headers", req.headers);
+
+  if (req.headers["x-password"]);
+
+  const password = req.headers["x-password"];
+
+  if (!password || password !== SECRET_PASSWORD) {
+    res.status(401).send("Wrong password!");
+  } else {
+    next();
+  }
+
+  next();
+};
+
+app.get("/public", (req, res) => {
+  res.send("this is info is made public");
+});
+
+app.get("/protected", [passwordCheckerMiddleware], (req, res) => {
+  res.send("this is info is available if you provided the correct password");
+});
+
+const PORT = 4005;
+app.listen(PORT, () => {
+  console.log(`server is now operational port: ${PORT}`);
+});
